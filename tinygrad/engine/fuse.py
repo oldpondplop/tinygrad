@@ -26,6 +26,7 @@ def _recurse_lb(buf:LazyBuffer, realizes:Dict[LazyBuffer, None], allbufs:Dict[La
     elif resolve(prod(buf.base.st.shape) < prod(buf.st.shape)):
       # this was causing "test_lil_model" to fail
       if buf.base.op is UnaryOps.CAST and isinstance(buf.base.srcs[0].dtype, ImageDType) and isinstance(buf.base.arg, ImageDType):
+        raise Exception("hi")
         simple_pads[buf.base] = None # don't realize image to image casts. this is part of a larger problem
       else: realizes[buf.base] = None
     # check all other pads for safe fusion
